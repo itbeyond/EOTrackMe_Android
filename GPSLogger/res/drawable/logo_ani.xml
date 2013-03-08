@@ -2,9 +2,9 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
         android:oneshot="false">
 
-        <item android:drawable="@drawable/icon_32" android:duration="250" />
-        <item android:drawable="@drawable/icon_32a" android:duration="250" />
-        <item android:drawable="@drawable/icon_32b" android:duration="250" />
-        <item android:drawable="@drawable/icon_32c" android:duration="250" />
+        <item android:drawable="@drawable/icon_32" android:duration="350" />
+        <item android:drawable="@drawable/icon_32a" android:duration="350" />
+        <item android:drawable="@drawable/icon_32b" android:duration="350" />
+        <item android:drawable="@drawable/icon_32c" android:duration="350" />
         
 </animation-list>
