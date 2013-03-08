@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:key="eotrackme_preferences">
+
+        <EditTextPreference android:key="eotrackme_user_id"
+                            android:title="EOTrackMe UserID"
+                            android:summary="Enter your EOTrackMe User ID (e.g. M1234)"
+                            android:dialogTitle="EOTrackMe UserID"/>
+
+        <EditTextPreference android:key="eotrackme_device_id" android:title="DeviceID"
+                            android:dialogTitle="DeviceID"/>
+
+
+</PreferenceScreen>

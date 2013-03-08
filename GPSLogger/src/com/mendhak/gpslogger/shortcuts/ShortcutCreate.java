@@ -22,7 +22,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import com.mendhak.gpslogger.R;
+import com.itbeyond.eologger.R;
 
 public class ShortcutCreate extends Activity
 {
@@ -55,7 +55,7 @@ public class ShortcutCreate extends Activity
                 }
 
                 Intent.ShortcutIconResource iconResource = Intent.ShortcutIconResource.fromContext
-                        (getApplicationContext(), R.drawable.gpsloggericon2);
+                        (getApplicationContext(), R.drawable.logo_ani);
                 Intent intent = new Intent();
                 intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
                 intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutLabel);

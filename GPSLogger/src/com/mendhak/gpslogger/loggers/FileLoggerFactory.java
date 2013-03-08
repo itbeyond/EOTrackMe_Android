@@ -18,6 +18,9 @@
 package com.mendhak.gpslogger.loggers;
 
 import android.os.Environment;
+
+import com.itbeyond.common.EOTrackMe;
+import com.itbeyond.gpslogger.loggers.EOTrackMeLogger;
 import com.mendhak.gpslogger.common.AppSettings;
 import com.mendhak.gpslogger.common.Session;
 
@@ -29,7 +32,7 @@ public class FileLoggerFactory
 {
     public static List<IFileLogger> GetFileLoggers()
     {
-        File gpxFolder = new File(Environment.getExternalStorageDirectory(), "GPSLogger");
+        File gpxFolder = new File(Environment.getExternalStorageDirectory(), "EOLogger");
         if (!gpxFolder.exists())
         {
             gpxFolder.mkdirs();
@@ -58,6 +61,11 @@ public class FileLoggerFactory
         if (AppSettings.shouldLogToOpenGTS())
         {
             loggers.add(new OpenGTSLogger());
+        }
+        
+        if (AppSettings.getEOTrackMeEnabled())
+        {
+            loggers.add(new EOTrackMeLogger(EOTrackMe.getLogFile()));
         }
 
         return loggers;

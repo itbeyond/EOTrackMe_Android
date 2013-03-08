@@ -24,6 +24,9 @@ import android.os.Handler;
 import android.preference.*;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
+
+import com.itbeyond.eologger.R;
+import com.mendhak.gpslogger.common.AppSettings;
 import com.mendhak.gpslogger.common.Utilities;
 import com.mendhak.gpslogger.senders.osm.OSMHelper;
 
@@ -88,7 +91,10 @@ public class GpsSettingsActivity extends PreferenceActivity
 
         CheckBoxPreference chkLog_opengts = (CheckBoxPreference) findPreference("log_opengts");
         chkLog_opengts.setOnPreferenceClickListener(new LogOpenGTSPreferenceClickListener(prefs));
-
+        
+        CheckBoxPreference chkeotrackme_enabled = (CheckBoxPreference) findPreference("eotrackme_enabled");
+        chkeotrackme_enabled.setOnPreferenceClickListener(new EOTrackMePreferenceClickListener());
+        
     }
 
 
@@ -271,7 +277,27 @@ public class GpsSettingsActivity extends PreferenceActivity
             return true;
         }
     }
-
+    
+    /**
+     * Opens the EOTrackMe preferences
+     * Listener to ensure that the server is configured when the user wants to enable EOTrackMe logging logger
+     */
+    private class EOTrackMePreferenceClickListener implements OnPreferenceClickListener
+    {
+       
+        public boolean onPreferenceClick(Preference preference)
+        {
+            CheckBoxPreference chkeotrackme_enabled = (CheckBoxPreference) findPreference("eotrackme_enabled");
+            
+            AppSettings.setEOTrackMeEnabled(chkeotrackme_enabled.isChecked());
+            if (chkeotrackme_enabled.isChecked())
+            {
+                startActivity(new Intent("com.mendhak.gpslogger.EOTRACKME_SETUP"));
+            }
+            return true;
+        }
+    }
+ 
     @Override
     public void onWindowFocusChanged(boolean hasFocus)
     {
@@ -287,6 +313,13 @@ public class GpsSettingsActivity extends PreferenceActivity
                 chkLog_opengts.setChecked(false);
             }
 
+            CheckBoxPreference chkeotrackme_enabled = (CheckBoxPreference) findPreference("eotrackme_enabled");
+            String userid = prefs.getString("eotrackme_user_id", "");
+
+            if (chkeotrackme_enabled.isChecked() && userid.length() == 0)
+            {
+            	chkeotrackme_enabled.setChecked(false);
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.KeyEvent;
 import android.webkit.URLUtil;
-import com.mendhak.gpslogger.R;
+import com.itbeyond.eologger.R;
 import com.mendhak.gpslogger.common.Utilities;
 
 public class OpenGTSActivity extends PreferenceActivity implements

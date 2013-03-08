@@ -19,6 +19,7 @@ package com.mendhak.gpslogger;
 
 import android.location.*;
 import android.os.Bundle;
+import com.itbeyond.eologger.R;
 import com.mendhak.gpslogger.common.Utilities;
 
 import java.util.Iterator;

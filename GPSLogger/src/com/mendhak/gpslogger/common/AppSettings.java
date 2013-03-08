@@ -57,7 +57,11 @@ public class AppSettings extends Application
     private static String openGTSServerCommunicationMethod;
     private static String openGTSServerPath;
     private static String openGTSDeviceId;
-
+    
+    private static boolean EOTrackMeEnabled;
+    private static String EOTrackMeUserId;
+    private static String EOTrackMeDeviceId; 
+    
     private static boolean autoFtpEnabled;
     private static String ftpServerName;
     private static int ftpPort;
@@ -507,7 +511,41 @@ public class AppSettings extends Application
     {
         AppSettings.openGTSDeviceId = openGTSDeviceId;
     }
+    
+    
+    
+    public static boolean getEOTrackMeEnabled()
+    {
+        return EOTrackMeEnabled;
+    }
 
+    public static void setEOTrackMeEnabled(boolean EOTrackMeEnabled)
+    {
+        AppSettings.EOTrackMeEnabled = EOTrackMeEnabled;
+    }
+
+    public static String getEOTrackMeUserId()
+    {
+        return EOTrackMeUserId;
+    }
+    
+    public static void setEOTrackMeUserId(String EOTrackMeUserId)
+    {
+        AppSettings.EOTrackMeUserId = EOTrackMeUserId;
+    }
+    
+    public static String getEOTrackMeDeviceId()
+    {
+        return EOTrackMeDeviceId;
+    }
+    
+    public static void setEOTrackMeDeviceId(String EOTrackMeDeviceId)
+    {
+        AppSettings.EOTrackMeDeviceId = EOTrackMeDeviceId;
+    }
+
+    
+    
 
     public static String getFtpServerName()
     {

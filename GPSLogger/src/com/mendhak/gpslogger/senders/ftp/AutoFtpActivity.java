@@ -20,7 +20,7 @@ package com.mendhak.gpslogger.senders.ftp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.*;
-import com.mendhak.gpslogger.R;
+import com.itbeyond.eologger.R;
 import com.mendhak.gpslogger.common.IActionListener;
 import com.mendhak.gpslogger.common.Utilities;
 

@@ -32,6 +32,13 @@ interface IGpsLoggerServiceClient
     public void OnStatusMessage(String message);
 
     /**
+     * New EOTrackMe message from the service to be displayed on the activity form.
+     *
+     * @param message
+     */
+    public void OnEOTrackMeStatusMessage(String message);
+    
+    /**
      * Indicates that a fatal error has occurred, logging will stop.
      *
      * @param message

@@ -33,6 +33,7 @@ import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import com.itbeyond.eologger.R;
 import com.mendhak.gpslogger.common.AppSettings;
 import com.mendhak.gpslogger.common.IActionListener;
 import com.mendhak.gpslogger.common.Session;
@@ -871,6 +872,21 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         tvStatus.setText(message);
         Utilities.LogInfo(message);
     }
+    
+    /**
+     * Sets the EOTrackMe Status message.
+     *
+     * @param message The status message
+     */
+    protected void SetEOTrackMeStatus(String message)
+    {
+        Utilities.LogDebug("GpsMainActivity.SetEOTrackMeStatus: " + message);
+        TextView EOStatus = (TextView) findViewById(R.id.txtEOTrackMeStatus);
+        EOStatus.setText(message);
+        Utilities.LogInfo(message);
+    }
+    
+    
 
     /**
      * Sets the number of satellites in the satellite row in the table.
@@ -1119,6 +1135,11 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     public void OnStatusMessage(String message)
     {
         SetStatus(message);
+    }
+    
+    public void OnEOTrackMeStatusMessage(String message)
+    {
+        SetEOTrackMeStatus(message);
     }
 
     public void OnFatalMessage(String message)

@@ -21,16 +21,24 @@
 
 package com.mendhak.gpslogger;
 
+import android.annotation.SuppressLint;
 import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.widget.Toast;
+
+import android.net.NetworkInfo;
+
+import com.itbeyond.common.EOTrackMe;
+import com.itbeyond.eologger.R;
+import com.itbeyond.gpslogger.senders.AlarmReceiver_EOTrackMe;
+import com.itbeyond.gpslogger.senders.eotrackme.EOTrackMeHelper;
 import com.mendhak.gpslogger.common.AppSettings;
 import com.mendhak.gpslogger.common.IActionListener;
 import com.mendhak.gpslogger.common.Session;
@@ -40,12 +48,14 @@ import com.mendhak.gpslogger.loggers.IFileLogger;
 import com.mendhak.gpslogger.senders.AlarmReceiver;
 import com.mendhak.gpslogger.senders.FileSenderFactory;
 
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@SuppressLint("SimpleDateFormat")
 public class GpsLoggingService extends Service implements IActionListener
 {
     private static NotificationManager gpsNotifyManager;
@@ -63,9 +73,11 @@ public class GpsLoggingService extends Service implements IActionListener
     private LocationManager towerLocationManager;
 
     private Intent alarmIntent;
-
+    
+    private Intent EOTrackMe_alarmIntent;
+    private boolean EOTrackMe_Running = false;
+    
     AlarmManager nextPointAlarmManager;
-
     // ---------------------------------------------------
 
     @Override
@@ -133,10 +145,12 @@ public class GpsLoggingService extends Service implements IActionListener
                 boolean startRightNow = bundle.getBoolean("immediate");
                 boolean sendEmailNow = bundle.getBoolean("emailAlarm");
                 boolean getNextPoint = bundle.getBoolean("getnextpoint");
+                boolean EOTrackMeAlarm = bundle.getBoolean("EOTrackMeAlarm");
+                String EOTrackMeStatus = bundle.getString("EOTrackMeStatus");
+                
+    //            Utilities.LogDebug("startRightNow - " + String.valueOf(startRightNow));
 
-                Utilities.LogDebug("startRightNow - " + String.valueOf(startRightNow));
-
-                Utilities.LogDebug("emailAlarm - " + String.valueOf(sendEmailNow));
+   //             Utilities.LogDebug("emailAlarm - " + String.valueOf(sendEmailNow));
 
                 if (startRightNow)
                 {
@@ -164,6 +178,15 @@ public class GpsLoggingService extends Service implements IActionListener
                 {
                     Utilities.LogDebug("HandleIntent - getNextPoint");
                     StartGpsManager();
+                }
+                
+                if (EOTrackMeAlarm)
+                {
+                	SendEOTrackMe();
+                }
+                if (String.valueOf(EOTrackMeStatus) != null);
+                {
+                	SetEOTrackMeStatus(String.valueOf(EOTrackMeStatus));
                 }
 
             }
@@ -211,7 +234,7 @@ public class GpsLoggingService extends Service implements IActionListener
         Utilities.LogDebug("GpsLoggingService.SetupAutoSendTimers");
         Utilities.LogDebug("isAutoSendEnabled - " + String.valueOf(AppSettings.isAutoSendEnabled()));
         Utilities.LogDebug("Session.getAutoSendDelay - " + String.valueOf(Session.getAutoSendDelay()));
-        if (AppSettings.isAutoSendEnabled() && Session.getAutoSendDelay() > 0)
+        if ((AppSettings.isAutoSendEnabled() && Session.getAutoSendDelay() > 0))
         {
             Utilities.LogDebug("Setting up autosend alarm");
             long triggerTime = System.currentTimeMillis()
@@ -237,7 +260,7 @@ public class GpsLoggingService extends Service implements IActionListener
             }
         }
     }
-
+       
     private void CancelAlarm()
     {
         Utilities.LogDebug("GpsLoggingService.CancelAlarm");
@@ -252,8 +275,84 @@ public class GpsLoggingService extends Service implements IActionListener
             am.cancel(sender);
         }
 
+    } 
+    
+    public void SetupEOTrackMeSendTimers()
+    {
+        Utilities.LogDebug("EOTrackMeEnabled - " + String.valueOf(AppSettings.getEOTrackMeEnabled()));     
+        if (AppSettings.getEOTrackMeEnabled())
+        {           
+            Utilities.LogDebug("GpsLoggingService.SetAlarmForEOTrackMe");
+            EOTrackMe_Running = true;           
+            EOTrackMe_alarmIntent = new Intent(getApplicationContext(), AlarmReceiver_EOTrackMe.class);
+            
+            AlarmManager ea = (AlarmManager) getSystemService(ALARM_SERVICE);
+            PendingIntent mi = PendingIntent.getBroadcast(this, 0, EOTrackMe_alarmIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            ea.cancel(mi);
+
+            Utilities.LogDebug("New EOTrackMe alarm intent");
+            ea.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (120000), mi);
+
+            Utilities.LogDebug("EOTrackMe Alarm has been set");    	       	
+        }
+        else
+        {
+            Utilities.LogDebug("Checking if EOTrackMe alarmIntent is null");
+            if (EOTrackMe_alarmIntent != null)
+            {
+                Utilities.LogDebug("EOTrackMe alarmIntent was null, canceling alarm");
+                CancelAlarm_EOTrackMe();
+            }
+        }
     }
 
+    private void CancelAlarm_EOTrackMe()
+    {
+        if (EOTrackMe_alarmIntent != null)
+        {
+            Utilities.LogDebug("GpsLoggingService.CancelAlarmForEOTrackMe");
+            AlarmManager ea = (AlarmManager) getSystemService(ALARM_SERVICE);
+            PendingIntent mi = PendingIntent.getBroadcast(this, 0, EOTrackMe_alarmIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            EOTrackMe_Running = false;
+            Utilities.LogDebug("Pending alarm intent was null? " + String.valueOf(mi == null));
+            ea.cancel(mi);
+        }
+    }
+    
+    /**
+     * Calls the EOTrackMe Helper which processes the file and sends it.
+     */
+    private void SendEOTrackMe()
+    {
+        boolean isOnline = false;
+        Utilities.LogDebug("GpsLoggingService.SendEOTrackMe");
+
+        // Check if we are online or not
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null && (cm.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTED) ||(cm.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED)){ 
+            isOnline= true;
+        }
+        
+        // Check the server log file has data to be sent
+        if (EOTrackMe.getLogFileLines() > 0 && isOnline && Session.getEOTrackMeError().length() == 0)
+        {
+            Utilities.LogInfo("Sending EOTrackMe Log File");
+            SetEOTrackMeStatus("Sending Locations");
+            EOTrackMeHelper EOTrackMeHelper = new EOTrackMeHelper(this, null);
+            EOTrackMeHelper.UploadFile();
+        }
+        
+        if (Session.getEOTrackMeError() != "" && Session.getEOTrackMeError() != null) {
+        	Utilities.LogWarning(Session.getEOTrackMeError());
+        	SetEOTrackMeStatus(Session.getEOTrackMeError()); return;
+        } 
+        
+        SetupEOTrackMeSendTimers();
+    }
+    
+    
     /**
      * Method to be called if user has chosen to auto email log files when he
      * stops logging
@@ -343,6 +442,11 @@ public class GpsLoggingService extends Service implements IActionListener
             Session.setAutoSendDelay(AppSettings.getAutoSendDelay());
             SetupAutoSendTimers();
         }
+        
+        if (AppSettings.getEOTrackMeEnabled() && !EOTrackMe_Running )
+        {
+        	SendEOTrackMe();
+        }
 
     }
 
@@ -353,12 +457,11 @@ public class GpsLoggingService extends Service implements IActionListener
     {
         Utilities.LogDebug("GpsLoggingService.StartLogging");
         Session.setAddNewTrackSegment(true);
-
+      
         if (Session.isStarted())
         {
             return;
         }
-
         Utilities.LogInfo("Starting logging procedures");
         try
         {
@@ -371,7 +474,7 @@ public class GpsLoggingService extends Service implements IActionListener
 
 
         Session.setStarted(true);
-
+        Session.setEOTrackMeError("");
         GetPreferences();
         Notify();
         ResetCurrentFileName(true);
@@ -404,6 +507,7 @@ public class GpsLoggingService extends Service implements IActionListener
         // Email log file before setting location info to null
         AutoSendLogFileOnStop();
         CancelAlarm();
+        CancelAlarm_EOTrackMe();
         Session.setCurrentLocationInfo(null);
         stopForeground(true);
 
@@ -467,7 +571,7 @@ public class GpsLoggingService extends Service implements IActionListener
         PendingIntent pending = PendingIntent.getActivity(getApplicationContext(), 0, contentIntent,
                 android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        Notification nfc = new Notification(R.drawable.gpsloggericon2, null, System.currentTimeMillis());
+        Notification nfc = new Notification(R.drawable.logo_ani, null, System.currentTimeMillis());
         nfc.flags |= Notification.FLAG_ONGOING_EVENT;
 
         NumberFormat nf = new DecimalFormat("###.######");
@@ -589,7 +693,8 @@ public class GpsLoggingService extends Service implements IActionListener
     /**
      * Sets the current file name based on user preference.
      */
-    private void ResetCurrentFileName(boolean newStart)
+    @SuppressLint("SimpleDateFormat")
+	private void ResetCurrentFileName(boolean newStart)
     {
 
         Utilities.LogDebug("GpsLoggingService.ResetCurrentFileName");
@@ -629,6 +734,19 @@ public class GpsLoggingService extends Service implements IActionListener
             mainServiceClient.OnStatusMessage(status);
         }
     }
+    
+    /**
+     * Gives an EOTrackMe status message to the main service client to display
+     *
+     * @param status The status message
+     */
+    void SetEOTrackMeStatus(String status)
+    {
+        if (IsMainFormVisible() && status != "null")
+        {
+            mainServiceClient.OnEOTrackMeStatusMessage(status);
+        }
+    }
 
     /**
      * Gives an error message to the main service client to display
@@ -653,7 +771,7 @@ public class GpsLoggingService extends Service implements IActionListener
         String s = getString(stringId);
         SetStatus(s);
     }
-
+    
     /**
      * Notifies main form that logging has stopped
      */

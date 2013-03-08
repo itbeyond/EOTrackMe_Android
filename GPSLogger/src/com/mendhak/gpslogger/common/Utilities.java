@@ -17,6 +17,7 @@
 
 package com.mendhak.gpslogger.common;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,7 +25,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import com.mendhak.gpslogger.R;
+import com.itbeyond.eologger.R;
 import com.mendhak.gpslogger.senders.ftp.FtpHelper;
 import org.w3c.dom.Document;
 
@@ -78,7 +79,6 @@ public class Utilities
         LogToDebugFile(message);
     }
 
-    @SuppressWarnings("unused")
     public static void LogDebug(String message)
     {
         if (LOGLEVEL >= 4)
@@ -97,7 +97,6 @@ public class Utilities
         LogToDebugFile(message);
     }
 
-    @SuppressWarnings("unused")
     public static void LogVerbose(String message)
     {
         if (LOGLEVEL >= 5)
@@ -240,6 +239,10 @@ public class Utilities
         AppSettings.setOpenGTSServerPath(prefs.getString("autoopengts_server_path", ""));
         AppSettings.setOpenGTSDeviceId(prefs.getString("opengts_device_id", ""));
 
+        AppSettings.setEOTrackMeEnabled(prefs.getBoolean("eotrackme_enabled", false));
+        AppSettings.setEOTrackMeUserId(prefs.getString("eotrackme_user_id", ""));
+        AppSettings.setEOTrackMeDeviceId(prefs.getString("eotrackme_device_id", ""));
+                
         AppSettings.setAutoFtpEnabled(prefs.getBoolean("autoftp_enabled",false));
         AppSettings.setFtpServerName(prefs.getString("autoftp_server",""));
         AppSettings.setFtpUsername(prefs.getString("autoftp_username",""));
@@ -504,7 +507,8 @@ public class Utilities
      * @param dateToFormat The Date object to format.
      * @return The ISO 8601 formatted string.
      */
-    public static String GetIsoDateTime(Date dateToFormat)
+    @SuppressLint("SimpleDateFormat")
+	public static String GetIsoDateTime(Date dateToFormat)
     {
         // GPX specs say that time given should be in UTC, no local time.
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -513,7 +517,8 @@ public class Utilities
         return sdf.format(dateToFormat);
     }
 
-    public static String GetReadableDateTime(Date dateToFormat)
+    @SuppressLint("SimpleDateFormat")
+	public static String GetReadableDateTime(Date dateToFormat)
     {
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm");
         return sdf.format(dateToFormat);

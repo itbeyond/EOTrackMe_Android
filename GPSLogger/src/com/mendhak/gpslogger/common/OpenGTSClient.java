@@ -17,6 +17,7 @@
 
 package com.mendhak.gpslogger.common;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Location;
 import com.loopj.android.http.AsyncHttpClient;
@@ -36,6 +37,7 @@ import java.util.TimeZone;
  *
  * @author Francisco Reynoso <franole @ gmail.com>
  */
+@SuppressLint("SimpleDateFormat")
 public class OpenGTSClient
 {
 
@@ -109,7 +111,8 @@ public class OpenGTSClient
         // TODO
     }
 
-    private void sendRAW(String id, Location[] locations)
+    @SuppressWarnings("unused")
+	private void sendRAW(String id, Location[] locations)
     {
         // TODO
     }
@@ -209,7 +212,8 @@ public class OpenGTSClient
         return gprmc;
     }
 
-    public static String NMEAGPRMCTime(Date dateToFormat)
+    @SuppressLint("SimpleDateFormat")
+	public static String NMEAGPRMCTime(Date dateToFormat)
     {
         SimpleDateFormat sdf = new SimpleDateFormat("HHmmss.SSS");
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -225,7 +229,7 @@ public class OpenGTSClient
 
     public static String NMEAGPRMCCoord(double coord)
     {
-        // “DDDMM.MMMMM”
+        // â€œDDDMM.MMMMMâ€�
         int degrees = (int) coord;
         double minutes = (coord - degrees) * 60;
 
@@ -238,7 +242,8 @@ public class OpenGTSClient
     }
 
 
-    public static String NMEACheckSum(String msg)
+    @SuppressLint("DefaultLocale")
+	public static String NMEACheckSum(String msg)
     {
         int chk = 0;
         for (int i = 1; i < msg.length(); i++)

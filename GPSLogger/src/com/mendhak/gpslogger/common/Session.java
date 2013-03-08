@@ -46,6 +46,8 @@ public class Session extends Application
     private static boolean allowDescription = true;
     private static boolean isSinglePointMode = false;
     private static int retryTimeout=0;
+    
+    private static String EOTrackMeError = "";
 
     public static boolean isSinglePointMode()
     {
@@ -382,6 +384,23 @@ public class Session extends Application
     public static void setAllowDescription(boolean allowDescription)
     {
         Session.allowDescription = allowDescription;
+    }
+    
+    /**
+     * @return whether EOTrackMeServer Error
+     */
+    public static String getEOTrackMeError()
+    {
+        return EOTrackMeError;
+    }
+
+    /**
+     * @param isStarted set whether logging has started
+     */
+    public static void setEOTrackMeError(String EOTrackMeError)
+    {
+        Session.EOTrackMeError = EOTrackMeError;
+
     }
 
 }
