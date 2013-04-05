@@ -26,7 +26,7 @@ import java.io.IOException;
 
 import org.apache.commons.lang.*;
 
-import com.mendhak.gpslogger.common.Utilities;
+import com.itbeyond.eotrackme.common.Utilities;
 
 import android.os.Environment;
 

@@ -21,14 +21,14 @@ package com.itbeyond.common;
 import android.content.Context;
 import android.content.Intent;
 
+import com.itbeyond.eotrackme.GpsLoggingService;
+import com.itbeyond.eotrackme.common.IActionListener;
+import com.itbeyond.eotrackme.common.Session;
+import com.itbeyond.eotrackme.common.Utilities;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.mendhak.gpslogger.GpsLoggingService;
 
-import com.mendhak.gpslogger.common.IActionListener;
-import com.mendhak.gpslogger.common.Session;
-import com.mendhak.gpslogger.common.Utilities;
 
 
 
