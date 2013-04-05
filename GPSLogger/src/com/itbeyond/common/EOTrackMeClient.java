@@ -20,8 +20,6 @@ package com.itbeyond.common;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;

@@ -143,7 +143,7 @@ public class GpsLoggingService extends Service implements IActionListener
             {
                 boolean stopRightNow = bundle.getBoolean("immediatestop");
                 boolean startRightNow = bundle.getBoolean("immediate");
-                boolean sendEmailNow = bundle.getBoolean("emailAlarm");
+//                boolean sendEmailNow = bundle.getBoolean("emailAlarm");
                 boolean getNextPoint = bundle.getBoolean("getnextpoint");
                 boolean EOTrackMeAlarm = bundle.getBoolean("EOTrackMeAlarm");
                 String EOTrackMeStatus = bundle.getString("EOTrackMeStatus");
@@ -165,14 +165,14 @@ public class GpsLoggingService extends Service implements IActionListener
                     StopLogging();
                 }
 
-                if (sendEmailNow)
+               /* if (sendEmailNow)
                 {
 
                     Utilities.LogDebug("setReadyToBeAutoSent = true");
 
                     Session.setReadyToBeAutoSent(true);
                     AutoSendLogFile();
-                }
+                }*/
 
                 if (getNextPoint && Session.isStarted())
                 {
@@ -229,7 +229,7 @@ public class GpsLoggingService extends Service implements IActionListener
     /**
      * Sets up the auto email timers based on user preferences.
      */
-    public void SetupAutoSendTimers()
+/*    public void SetupAutoSendTimers()
     {
         Utilities.LogDebug("GpsLoggingService.SetupAutoSendTimers");
         Utilities.LogDebug("isAutoSendEnabled - " + String.valueOf(AppSettings.isAutoSendEnabled()));
@@ -275,7 +275,7 @@ public class GpsLoggingService extends Service implements IActionListener
             am.cancel(sender);
         }
 
-    } 
+    } */
     
     public void SetupEOTrackMeSendTimers()
     {
@@ -357,7 +357,7 @@ public class GpsLoggingService extends Service implements IActionListener
      * Method to be called if user has chosen to auto email log files when he
      * stops logging
      */
-    private void AutoSendLogFileOnStop()
+/*    private void AutoSendLogFileOnStop()
     {
         Utilities.LogDebug("GpsLoggingService.AutoSendLogFileOnStop");
         Utilities.LogVerbose("isAutoSendEnabled - " + AppSettings.isAutoSendEnabled());
@@ -368,11 +368,11 @@ public class GpsLoggingService extends Service implements IActionListener
             AutoSendLogFile();
         }
     }
-
+*/
     /**
      * Calls the Auto Email Helper which processes the file and sends it.
      */
-    private void AutoSendLogFile()
+/*    private void AutoSendLogFile()
     {
 
         Utilities.LogDebug("GpsLoggingService.AutoSendLogFile");
@@ -392,9 +392,9 @@ public class GpsLoggingService extends Service implements IActionListener
             SetupAutoSendTimers();
 
         }
-    }
+    }*/
 
-    protected void ForceEmailLogFile()
+/*    protected void ForceEmailLogFile()
     {
 
         Utilities.LogDebug("GpsLoggingService.ForceEmailLogFile");
@@ -409,7 +409,7 @@ public class GpsLoggingService extends Service implements IActionListener
             Utilities.LogInfo("Force emailing Log File");
             FileSenderFactory.SendFiles(getApplicationContext(), this);
         }
-    }
+    }*/
 
 
     /**
@@ -440,7 +440,7 @@ public class GpsLoggingService extends Service implements IActionListener
             Utilities.LogDebug("Old autoSendDelay - " + String.valueOf(Session.getAutoSendDelay())
                     + "; New -" + String.valueOf(AppSettings.getAutoSendDelay()));
             Session.setAutoSendDelay(AppSettings.getAutoSendDelay());
-            SetupAutoSendTimers();
+//            SetupAutoSendTimers();
         }
         
         if (AppSettings.getEOTrackMeEnabled() && !EOTrackMe_Running )
@@ -505,8 +505,8 @@ public class GpsLoggingService extends Service implements IActionListener
         Utilities.LogInfo("Stopping logging");
         Session.setStarted(false);
         // Email log file before setting location info to null
-        AutoSendLogFileOnStop();
-        CancelAlarm();
+//        AutoSendLogFileOnStop();
+//        CancelAlarm();
         CancelAlarm_EOTrackMe();
         Session.setCurrentLocationInfo(null);
         stopForeground(true);

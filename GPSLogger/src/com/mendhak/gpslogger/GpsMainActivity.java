@@ -211,7 +211,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         {
             GetPreferences();
             SetSinglePointButtonEnabled(false);
-            loggingService.SetupAutoSendTimers();
+//            loggingService.SetupAutoSendTimers();
             loggingService.StartLogging();
         }
         else
@@ -341,7 +341,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
             }
 
 
-            if (AppSettings.isAutoSendEnabled())
+   /*         if (AppSettings.isAutoSendEnabled())
             {
                 String autoEmailResx;
 
@@ -365,7 +365,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
                 TableRow trAutoEmail = (TableRow) findViewById(R.id.trAutoEmail);
                 trAutoEmail.setVisibility(View.INVISIBLE);
             }
-
+*/
             onFileName(Session.getCurrentFileName());
         }
         catch (Exception ex)
@@ -419,7 +419,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
                 Intent settingsActivity = new Intent(getApplicationContext(), GpsSettingsActivity.class);
                 startActivity(settingsActivity);
                 break;
-            case R.id.mnuOSM:
+/*            case R.id.mnuOSM:
                 UploadToOpenStreetMap();
                 break;
             case R.id.mnuDropBox:
@@ -445,7 +445,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
                 break;
             case R.id.mnuEmailnow:
                 EmailNow();
-                break;
+                break;*/
             case R.id.mnuExit:
                 loggingService.StopLogging();
                 loggingService.stopSelf();
@@ -455,7 +455,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         return false;
     }
 
-
+/*
     private void EmailNow()
     {
         Utilities.LogDebug("GpsMainActivity.EmailNow");
@@ -473,7 +473,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
 
         }
 
-    }
+    }*/
 
 
     /**
@@ -481,7 +481,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
      * using a provider. 'Provider' means any application that can accept such
      * an intent (Facebook, SMS, Twitter, Email, K-9, Bluetooth)
      */
-    private void Share()
+ /*   private void Share()
     {
         Utilities.LogDebug("GpsMainActivity.Share");
         try
@@ -531,7 +531,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
                         final Intent intent = new Intent(Intent.ACTION_SEND);
 
                         // intent.setType("text/plain");
-                        intent.setType("*/*");
+ //                      Intent.setType("");
 
                         if (chosenFileName.equalsIgnoreCase(locationOnly))
                         {
@@ -659,11 +659,11 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
 
     }
 
-
+*/
     /**
      * Uploads a GPS Trace to OpenStreetMap.org.
      */
-    private void UploadToOpenStreetMap()
+/*    private void UploadToOpenStreetMap()
     {
         Utilities.LogDebug("GpsMainactivity.UploadToOpenStreetMap");
 
@@ -678,9 +678,9 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         ShowFileListDialog(settingsIntent, FileSenderFactory.GetOsmSender(getApplicationContext(), this));
 
     }
+*/
 
-
-    private void ShowFileListDialog(final Intent settingsIntent, final IFileSender sender)
+  /*  private void ShowFileListDialog(final Intent settingsIntent, final IFileSender sender)
     {
 
         final File gpxFolder = new File(Environment.getExternalStorageDirectory(), "GPSLogger");
@@ -745,13 +745,13 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         {
             Utilities.MsgBox(getString(R.string.sorry), getString(R.string.no_files_found), this);
         }
-    }
+    }*/
 
 
     /**
      * Prompts user for input, then adds text to log file
      */
-    private void Annotate()
+/*    private void Annotate()
     {
         Utilities.LogDebug("GpsMainActivity.Annotate");
 
@@ -819,7 +819,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
             }
         }
     }
-
+*/
     /**
      * Clears the table, removes all values.
      */

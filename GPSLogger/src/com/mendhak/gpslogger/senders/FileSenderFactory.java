@@ -99,7 +99,7 @@ public class FileSenderFactory
             return;
         }
 
-        if (AppSettings.shouldSendZipFile())
+/*        if (AppSettings.shouldSendZipFile())
         {
             File zipFile = new File(gpxFolder.getPath(), currentFileName + ".zip");
             ArrayList<String> filePaths = new ArrayList<String>();
@@ -115,7 +115,7 @@ public class FileSenderFactory
 
             //files.clear();
             files.add(zipFile);
-        }
+        }*/
 
         List<IFileSender> senders = GetFileSenders(applicationContext, callback);
 
@@ -130,7 +130,7 @@ public class FileSenderFactory
     {
         List<IFileSender> senders = new ArrayList<IFileSender>();
 
-        if (GDocsHelper.IsLinked(applicationContext))
+/*        if (GDocsHelper.IsLinked(applicationContext))
         {
             senders.add(new GDocsHelper(applicationContext, callback));
         }
@@ -138,14 +138,14 @@ public class FileSenderFactory
         if (OSMHelper.IsOsmAuthorized(applicationContext))
         {
             senders.add(new OSMHelper(applicationContext, callback));
-        }
+        }*/
 
-        if (AppSettings.isAutoEmailEnabled())
+ /*       if (AppSettings.isAutoEmailEnabled())
         {
             senders.add(new AutoEmailHelper(callback));
         }
-
-        DropBoxHelper dh = new DropBoxHelper(applicationContext, callback);
+*/
+   /*     DropBoxHelper dh = new DropBoxHelper(applicationContext, callback);
 
         if (dh.IsLinked())
         {
@@ -161,7 +161,7 @@ public class FileSenderFactory
         {
             senders.add(new FtpHelper(callback));
         }
-
+*/
         return senders;
 
     }

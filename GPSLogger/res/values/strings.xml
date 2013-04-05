@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EOLogger</string>
-    <string name="settings_screen_name">EOLogger Settings</string>
+    <string name="app_name">EOTrackMe</string>
+    <string name="settings_screen_name">EOTrackMe Settings</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="could_not_write_to_file">Could not write to file</string>
@@ -29,12 +29,12 @@
     <string name="txt_satellites">Satellites:</string>
     <string name="txt_accuracy">Accuracy:</string>
     <string name="txt_travel_distance">Travelled:</string>
-    <string name="txt_eotrackme_status">EOTrackMe:</string>
+    <string name="txt_eotrackme_status">Server:</string>
     <string name="btn_start_logging">Start Logging</string>
     <string name="btn_stop_logging">Stop Logging</string>
 
 
-    <string name="gpslogger_still_running">EOLogger is still running.</string>
+    <string name="gpslogger_still_running">EOTrackMe is still running.</string>
 
     <string name="summary_loggingto">Logging to:</string>
     <string name="summary_loggingto_screen">screen only</string>
@@ -43,7 +43,7 @@
     <string name="summary_dist">Distance:</string>
     <string name="summary_dist_regardless">maximum</string>
     <string name="summary_current_filename">File:</string>
-    <string name="summary_current_filename_format">%s (in your EOLogger folder)</string>
+    <string name="summary_current_filename_format">%s (in your EOTrackMe folder)</string>
 
 
 

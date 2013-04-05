@@ -112,7 +112,7 @@ class AutoSendHandler implements Runnable
     {
         try
         {
-            Mail m = new Mail(AppSettings.getSmtpUsername(),
+  /*          Mail m = new Mail(AppSettings.getSmtpUsername(),
                     AppSettings.getSmtpPassword());
 
             String csvEmailTargets = AppSettings.getAutoEmailTargets();
@@ -144,9 +144,9 @@ class AutoSendHandler implements Runnable
             else
             {
                 helper.OnFailure();
-            }
-        }
-        catch (Exception e)
+           }
+   */         }
+     catch (Exception e)
         {
             helper.OnFailure();
             Utilities.LogError("AutoSendHandler.run", e);

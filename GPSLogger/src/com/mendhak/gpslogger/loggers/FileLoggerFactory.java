@@ -58,10 +58,10 @@ public class FileLoggerFactory
             loggers.add(new PlainTextFileLogger(file));
         }
 
-        if (AppSettings.shouldLogToOpenGTS())
+ /*       if (AppSettings.shouldLogToOpenGTS())
         {
             loggers.add(new OpenGTSLogger());
-        }
+        }*/
         
         if (AppSettings.getEOTrackMeEnabled())
         {

@@ -52,12 +52,12 @@ public class FtpHelper implements IFileSender
     {
 
 
-        if (!ValidSettings(AppSettings.getFtpServerName(), AppSettings.getFtpUsername(), AppSettings.getFtpPassword(),
+  /*      if (!ValidSettings(AppSettings.getFtpServerName(), AppSettings.getFtpUsername(), AppSettings.getFtpPassword(),
                 AppSettings.getFtpPort(), AppSettings.FtpUseFtps(), AppSettings.getFtpProtocol(), AppSettings.FtpImplicit()))
         {
             callback.OnFailure();
         }
-
+*/
         File zipFile = null;
 
         //Only upload a zip file if it's present
@@ -88,13 +88,13 @@ public class FtpHelper implements IFileSender
     {
         try
         {
-            FileInputStream fis = new FileInputStream(f);
+/*            FileInputStream fis = new FileInputStream(f);
             Thread t = new Thread(new FtpUploadHandler(callback, AppSettings.getFtpServerName(), AppSettings.getFtpPort(),
                     AppSettings.getFtpUsername(), AppSettings.getFtpPassword(),
                     AppSettings.FtpUseFtps(), AppSettings.getFtpProtocol(), AppSettings.FtpImplicit(),
                     fis, f.getName()));
             t.start();
-        }
+*/        }
         catch (Exception e)
         {
             Utilities.LogError("Could not prepare file for upload.", e);

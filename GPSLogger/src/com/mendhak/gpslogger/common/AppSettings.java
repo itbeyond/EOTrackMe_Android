@@ -35,7 +35,7 @@ public class AppSettings extends Application
     private static int retryInterval;
     private static String newFileCreation;
     private static Float autoSendDelay = 0f;
-    private static boolean autoSendEnabled = false;
+/*    private static boolean autoSendEnabled = false;
     private static boolean autoEmailEnabled = false;
     private static String smtpServer;
     private static String smtpPort;
@@ -45,9 +45,9 @@ public class AppSettings extends Application
     private static String autoEmailTargets;
     private static boolean smtpSsl;
     private static boolean debugToFile;
-    private static int minimumDistance;
+*/    private static int minimumDistance;
     private static int minimumAccuracy;
-    private static boolean shouldSendZipFile;
+/*    private static boolean shouldSendZipFile;
 
     private static boolean LogToOpenGTS;
     private static boolean openGTSEnabled;
@@ -56,20 +56,20 @@ public class AppSettings extends Application
     private static String openGTSServerPort;
     private static String openGTSServerCommunicationMethod;
     private static String openGTSServerPath;
-    private static String openGTSDeviceId;
+    private static String openGTSDeviceId;*/
     
     private static boolean EOTrackMeEnabled;
     private static String EOTrackMeUserId;
     private static String EOTrackMeDeviceId; 
     
-    private static boolean autoFtpEnabled;
+/*    private static boolean autoFtpEnabled;
     private static String ftpServerName;
     private static int ftpPort;
     private static String ftpUsername;
     private static String ftpPassword;
     private static boolean ftpUseFtps;
     private static String ftpProtocol;
-    private static boolean ftpImplicit;
+    private static boolean ftpImplicit;*/
 
 
     /**
@@ -298,9 +298,9 @@ public class AppSettings extends Application
 
     }
 
-    /**
+/*    /**
      * @return the autoEmailEnabled
-     */
+     *//*
     public static boolean isAutoEmailEnabled()
     {
         return autoEmailEnabled;
@@ -308,7 +308,7 @@ public class AppSettings extends Application
 
     /**
      * @param autoEmailEnabled the autoEmailEnabled to set
-     */
+     *//*
     static void setAutoEmailEnabled(boolean autoEmailEnabled)
     {
         AppSettings.autoEmailEnabled = autoEmailEnabled;
@@ -406,13 +406,13 @@ public class AppSettings extends Application
     {
         AppSettings.smtpFrom = smtpFrom;
     }
-
+*/
     /**
      * Returns the from value to use when sending an email
      *
      * @return
      */
-    public static String getSenderAddress()
+/*    public static String getSenderAddress()
     {
         if (getSmtpFrom() != null && getSmtpFrom().length() > 0)
         {
@@ -511,7 +511,7 @@ public class AppSettings extends Application
     {
         AppSettings.openGTSDeviceId = openGTSDeviceId;
     }
-    
+    */
     
     
     public static boolean getEOTrackMeEnabled()
@@ -545,7 +545,7 @@ public class AppSettings extends Application
     }
 
     
-    
+    /*
 
     public static String getFtpServerName()
     {
@@ -625,5 +625,5 @@ public class AppSettings extends Application
     public static void setAutoFtpEnabled(boolean autoFtpEnabled)
     {
         AppSettings.autoFtpEnabled = autoFtpEnabled;
-    }
+    }*/
 }

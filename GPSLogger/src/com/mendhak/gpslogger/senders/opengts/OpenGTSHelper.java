@@ -97,14 +97,14 @@ class OpenGTSHandler implements Runnable
             if (locations.size() > 0)
             {
 
-                String server = AppSettings.getOpenGTSServer();
+/*                String server = AppSettings.getOpenGTSServer();
                 int port = Integer.parseInt(AppSettings.getOpenGTSServerPort());
                 String path = AppSettings.getOpenGTSServerPath();
                 String deviceId = AppSettings.getOpenGTSDeviceId();
 
                 OpenGTSClient openGTSClient = new OpenGTSClient(server, port, path, helper, applicationContext);
                 openGTSClient.sendHTTP(deviceId, locations.toArray(new Location[0]));
-
+*/
             }
             else
             {

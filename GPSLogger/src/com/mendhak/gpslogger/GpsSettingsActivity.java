@@ -42,13 +42,13 @@ public class GpsSettingsActivity extends PreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
 
-        if (getIntent().getBooleanExtra("autosend_preferencescreen", false))
+      /*  if (getIntent().getBooleanExtra("autosend_preferencescreen", false))
         {
             PreferenceScreen screen = (PreferenceScreen) findPreference("gpslogger_preferences");
             int pos = findPreference("autosend_preferencescreen").getOrder();
             screen.onItemClick(null, null, pos, 0);
         }
-
+*/
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         boolean useImperial = prefs.getBoolean("useImperial", false);
@@ -85,13 +85,13 @@ public class GpsSettingsActivity extends PreferenceActivity
 
         Preference enableDisablePref = findPreference("enableDisableGps");
         enableDisablePref.setOnPreferenceClickListener(new AndroidLocationPreferenceClickListener());
-
+/*
         Preference osmSetupPref = findPreference("osm_setup");
         osmSetupPref.setOnPreferenceClickListener(new OSMPreferenceClickListener());
 
         CheckBoxPreference chkLog_opengts = (CheckBoxPreference) findPreference("log_opengts");
         chkLog_opengts.setOnPreferenceClickListener(new LogOpenGTSPreferenceClickListener(prefs));
-        
+ */      
         CheckBoxPreference chkeotrackme_enabled = (CheckBoxPreference) findPreference("eotrackme_enabled");
         chkeotrackme_enabled.setOnPreferenceClickListener(new EOTrackMePreferenceClickListener());
         
@@ -124,7 +124,7 @@ public class GpsSettingsActivity extends PreferenceActivity
 
     /**
      * Opens the OpenStreetMap preferences screen
-     */
+     
     private class OSMPreferenceClickListener implements OnPreferenceClickListener
     {
 
@@ -135,7 +135,7 @@ public class GpsSettingsActivity extends PreferenceActivity
             return true;
         }
     }
-
+*/
 
     private class ImperialPreferenceChangeListener implements Preference.OnPreferenceChangeListener
     {
@@ -255,7 +255,7 @@ public class GpsSettingsActivity extends PreferenceActivity
     /**
      * Opens the OpenGTS preferences
      * Listener to ensure that the server is configured when the user wants to enable OpenGTS logging logger
-     */
+   
     private class LogOpenGTSPreferenceClickListener implements OnPreferenceClickListener
     {
         private SharedPreferences prefs;
@@ -277,7 +277,7 @@ public class GpsSettingsActivity extends PreferenceActivity
             return true;
         }
     }
-    
+      */
     /**
      * Opens the EOTrackMe preferences
      * Listener to ensure that the server is configured when the user wants to enable EOTrackMe logging logger

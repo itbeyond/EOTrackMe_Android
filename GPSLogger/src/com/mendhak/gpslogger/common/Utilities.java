@@ -44,10 +44,10 @@ public class Utilities
 
     private static void LogToDebugFile(String message)
     {
-        if (AppSettings.isDebugToFile())
+     /*   if (AppSettings.isDebugToFile())
         {
             DebugLogger.Write(message);
-        }
+        }*/
     }
 
     public static void LogInfo(String message)
@@ -124,7 +124,7 @@ public class Utilities
 
         AppSettings.setLogToPlainText(prefs.getBoolean("log_plain_text", false));
 
-        AppSettings.setLogToOpenGTS(prefs.getBoolean("log_opengts", false));
+//        AppSettings.setLogToOpenGTS(prefs.getBoolean("log_opengts", false));
 
         AppSettings.setShowInNotificationBar(prefs.getBoolean(
                 "show_notification", true));
@@ -207,11 +207,11 @@ public class Utilities
             AppSettings.setNewFileOnceADay(false);
         }
 
-        AppSettings.setAutoSendEnabled(prefs.getBoolean("autosend_enabled", false));
+/*        AppSettings.setAutoSendEnabled(prefs.getBoolean("autosend_enabled", false));
 
         AppSettings.setAutoEmailEnabled(prefs.getBoolean("autoemail_enabled",
                 false));
-
+*/
         if (Float.valueOf(prefs.getString("autosend_frequency", "0")) >= 8f)
         {
             SharedPreferences.Editor editor = prefs.edit();
@@ -221,36 +221,36 @@ public class Utilities
 
         AppSettings.setAutoSendDelay(Float.valueOf(prefs.getString(
                 "autosend_frequency", "0")));
-
-        AppSettings.setSmtpServer(prefs.getString("smtp_server", ""));
-        AppSettings.setSmtpPort(prefs.getString("smtp_port", "25"));
-        AppSettings.setSmtpSsl(prefs.getBoolean("smtp_ssl", true));
-        AppSettings.setSmtpUsername(prefs.getString("smtp_username", ""));
-        AppSettings.setSmtpPassword(prefs.getString("smtp_password", ""));
-        AppSettings.setAutoEmailTargets(prefs.getString("autoemail_target", ""));
-        AppSettings.setDebugToFile(prefs.getBoolean("debugtofile", false));
-        AppSettings.setShouldSendZipFile(prefs.getBoolean("autosend_sendzip", true));
-        AppSettings.setSmtpFrom(prefs.getString("smtp_from", ""));
-        AppSettings.setOpenGTSEnabled(prefs.getBoolean("opengts_enabled", false));
-        AppSettings.setAutoOpenGTSEnabled(prefs.getBoolean("autoopengts_enabled", false));
-        AppSettings.setOpenGTSServer(prefs.getString("opengts_server", ""));
-        AppSettings.setOpenGTSServerPort(prefs.getString("opengts_server_port", ""));
-        AppSettings.setOpenGTSServerCommunicationMethod(prefs.getString("opengts_server_communication_method", ""));
-        AppSettings.setOpenGTSServerPath(prefs.getString("autoopengts_server_path", ""));
-        AppSettings.setOpenGTSDeviceId(prefs.getString("opengts_device_id", ""));
-
+//
+//        AppSettings.setSmtpServer(prefs.getString("smtp_server", ""));
+//        AppSettings.setSmtpPort(prefs.getString("smtp_port", "25"));
+//        AppSettings.setSmtpSsl(prefs.getBoolean("smtp_ssl", true));
+//        AppSettings.setSmtpUsername(prefs.getString("smtp_username", ""));
+//        AppSettings.setSmtpPassword(prefs.getString("smtp_password", ""));
+//        AppSettings.setAutoEmailTargets(prefs.getString("autoemail_target", ""));
+//        AppSettings.setDebugToFile(prefs.getBoolean("debugtofile", false));
+//        AppSettings.setShouldSendZipFile(prefs.getBoolean("autosend_sendzip", true));
+//        AppSettings.setSmtpFrom(prefs.getString("smtp_from", ""));
+//        AppSettings.setOpenGTSEnabled(prefs.getBoolean("opengts_enabled", false));
+//        AppSettings.setAutoOpenGTSEnabled(prefs.getBoolean("autoopengts_enabled", false));
+//        AppSettings.setOpenGTSServer(prefs.getString("opengts_server", ""));
+//        AppSettings.setOpenGTSServerPort(prefs.getString("opengts_server_port", ""));
+//        AppSettings.setOpenGTSServerCommunicationMethod(prefs.getString("opengts_server_communication_method", ""));
+//        AppSettings.setOpenGTSServerPath(prefs.getString("autoopengts_server_path", ""));
+//        AppSettings.setOpenGTSDeviceId(prefs.getString("opengts_device_id", ""));
+//
         AppSettings.setEOTrackMeEnabled(prefs.getBoolean("eotrackme_enabled", false));
         AppSettings.setEOTrackMeUserId(prefs.getString("eotrackme_user_id", ""));
         AppSettings.setEOTrackMeDeviceId(prefs.getString("eotrackme_device_id", ""));
-                
-        AppSettings.setAutoFtpEnabled(prefs.getBoolean("autoftp_enabled",false));
-        AppSettings.setFtpServerName(prefs.getString("autoftp_server",""));
-        AppSettings.setFtpUsername(prefs.getString("autoftp_username",""));
-        AppSettings.setFtpPassword(prefs.getString("autoftp_password",""));
-        AppSettings.setFtpPort(Integer.valueOf(prefs.getString("autoftp_port", "21")));
-        AppSettings.setFtpUseFtps(prefs.getBoolean("autoftp_useftps", false));
-        AppSettings.setFtpProtocol(prefs.getString("autoftp_ssltls",""));
-        AppSettings.setFtpImplicit(prefs.getBoolean("autoftp_implicit", false));
+//                
+//        AppSettings.setAutoFtpEnabled(prefs.getBoolean("autoftp_enabled",false));
+//        AppSettings.setFtpServerName(prefs.getString("autoftp_server",""));
+//        AppSettings.setFtpUsername(prefs.getString("autoftp_username",""));
+//        AppSettings.setFtpPassword(prefs.getString("autoftp_password",""));
+//        AppSettings.setFtpPort(Integer.valueOf(prefs.getString("autoftp_port", "21")));
+//        AppSettings.setFtpUseFtps(prefs.getBoolean("autoftp_useftps", false));
+//        AppSettings.setFtpProtocol(prefs.getString("autoftp_ssltls",""));
+//        AppSettings.setFtpImplicit(prefs.getBoolean("autoftp_implicit", false));
 
     }
 
@@ -559,7 +559,7 @@ public class Utilities
         return MetersToFeet((int) m);
     }
 
-    public static boolean IsEmailSetup()
+/*    public static boolean IsEmailSetup()
     {
         return AppSettings.isAutoEmailEnabled()
                 && AppSettings.getAutoEmailTargets().length() > 0
@@ -568,8 +568,8 @@ public class Utilities
                 && AppSettings.getSmtpUsername().length() > 0;
 
     }
-
-    public static boolean IsOpenGTSSetup()
+*/
+ /*   public static boolean IsOpenGTSSetup()
     {
         return AppSettings.isOpenGTSEnabled() &&
                 AppSettings.getOpenGTSServer().length() > 0
@@ -577,9 +577,9 @@ public class Utilities
                 && AppSettings.getOpenGTSServerCommunicationMethod().length() > 0
                 && AppSettings.getOpenGTSDeviceId().length() > 0;
     }
+*/
 
-
-    public static boolean IsFtpSetup()
+ /*   public static boolean IsFtpSetup()
     {
 
         FtpHelper helper = new FtpHelper(null);
@@ -588,7 +588,7 @@ public class Utilities
                 AppSettings.getFtpPassword(), AppSettings.getFtpPort(), AppSettings.FtpUseFtps(),
                 AppSettings.getFtpProtocol(), AppSettings.FtpImplicit());
     }
-
+*/
     /**
      * Uses the Haversine formula to calculate the distnace between to lat-long coordinates
      *
