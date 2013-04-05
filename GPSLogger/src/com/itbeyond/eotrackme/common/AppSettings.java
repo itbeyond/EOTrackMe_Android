@@ -56,9 +56,9 @@ public class AppSettings extends Application
     private static String openGTSServerPort;
     private static String openGTSServerCommunicationMethod;
     private static String openGTSServerPath;
-    private static String openGTSDeviceId;*/
+    private static String openGTSDeviceId;
     
-    private static boolean EOTrackMeEnabled;
+    private static boolean EOTrackMeEnabled;*/
     private static String EOTrackMeUserId;
     private static String EOTrackMeDeviceId; 
     
@@ -516,13 +516,9 @@ public class AppSettings extends Application
     
     public static boolean getEOTrackMeEnabled()
     {
-        return EOTrackMeEnabled;
+        return EOTrackMeUserId.length() > 1;
     }
 
-    public static void setEOTrackMeEnabled(boolean EOTrackMeEnabled)
-    {
-        AppSettings.EOTrackMeEnabled = EOTrackMeEnabled;
-    }
 
     public static String getEOTrackMeUserId()
     {

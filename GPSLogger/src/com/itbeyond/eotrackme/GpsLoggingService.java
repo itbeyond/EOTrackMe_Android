@@ -517,10 +517,14 @@ public class GpsLoggingService extends Service implements IActionListener
      */
     private void CheckTowerAndGpsStatus()
     {
+    	try {
+    	
         Session.setTowerEnabled(towerLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
         Session.setGpsEnabled(gpsLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+    } catch (Throwable e) {
+       
     }
-
+    }
     /**
      * Stops the location managers
      */

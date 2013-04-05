@@ -238,7 +238,7 @@ public class Utilities
 //        AppSettings.setOpenGTSServerPath(prefs.getString("autoopengts_server_path", ""));
 //        AppSettings.setOpenGTSDeviceId(prefs.getString("opengts_device_id", ""));
 //
-        AppSettings.setEOTrackMeEnabled(prefs.getBoolean("eotrackme_enabled", false));
+//        AppSettings.setEOTrackMeEnabled(prefs.getBoolean("eotrackme_enabled", false));
         AppSettings.setEOTrackMeUserId(prefs.getString("eotrackme_user_id", ""));
         AppSettings.setEOTrackMeDeviceId(prefs.getString("eotrackme_device_id", ""));
 //                

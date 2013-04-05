@@ -25,8 +25,8 @@ import android.preference.*;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 
+import com.itbeyond.common.DeviceUuidFactory;
 import com.itbeyond.eotrackme.R;
-import com.itbeyond.eotrackme.common.AppSettings;
 import com.itbeyond.eotrackme.common.Utilities;
 
 public class GpsSettingsActivity extends PreferenceActivity
@@ -76,10 +76,13 @@ public class GpsSettingsActivity extends PreferenceActivity
 
         Preference enableDisablePref = findPreference("enableDisableGps");
         enableDisablePref.setOnPreferenceClickListener(new AndroidLocationPreferenceClickListener());
-    
-        CheckBoxPreference chkeotrackme_enabled = (CheckBoxPreference) findPreference("eotrackme_enabled");
-        chkeotrackme_enabled.setOnPreferenceClickListener(new EOTrackMePreferenceClickListener());
         
+         
+        EditTextPreference txtEOTrackMeDeviceId = (EditTextPreference) findPreference("eotrackme_device_id");
+        DeviceUuidFactory DUID = new DeviceUuidFactory(getApplicationContext());
+        txtEOTrackMeDeviceId.setText(DUID.getDeviceUuid().toString());
+       
+            
     }
 
 
@@ -222,27 +225,6 @@ public class GpsSettingsActivity extends PreferenceActivity
         }
 
     }
-
-
-    /**
-     * Opens the EOTrackMe preferences
-     * Listener to ensure that the server is configured when the user wants to enable EOTrackMe logging logger
-     */
-    private class EOTrackMePreferenceClickListener implements OnPreferenceClickListener
-    {
-       
-        public boolean onPreferenceClick(Preference preference)
-        {
-            CheckBoxPreference chkeotrackme_enabled = (CheckBoxPreference) findPreference("eotrackme_enabled");
-            
-            AppSettings.setEOTrackMeEnabled(chkeotrackme_enabled.isChecked());
-            if (chkeotrackme_enabled.isChecked())
-            {
-                startActivity(new Intent("com.mendhak.gpslogger.EOTRACKME_SETUP"));
-            }
-            return true;
-        }
-    }
  
     @Override
     public void onWindowFocusChanged(boolean hasFocus)
@@ -251,13 +233,7 @@ public class GpsSettingsActivity extends PreferenceActivity
         if (hasFocus)
         {
 
-            CheckBoxPreference chkeotrackme_enabled = (CheckBoxPreference) findPreference("eotrackme_enabled");
-            String userid = prefs.getString("eotrackme_user_id", "");
-
-            if (chkeotrackme_enabled.isChecked() && userid.length() == 0)
-            {
-            	chkeotrackme_enabled.setChecked(false);
-            }
+       
         }
     }
 }
