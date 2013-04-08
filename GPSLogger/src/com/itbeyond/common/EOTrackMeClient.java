@@ -130,6 +130,7 @@ public class EOTrackMeClient extends GpsLoggingService
         @Override
         public void onFailure(Throwable e, String response)
         {
+        	if (response != null) { updateStatus("ERROR: " + response);}
             Utilities.LogError("OnCompleteLocation.MyAsyncHttpResponseHandler Failure with response :" + response, new Exception(e));
             callback.OnFailure();
         }
@@ -159,7 +160,7 @@ public class EOTrackMeClient extends GpsLoggingService
     
     private void updateStatus(String msg) 
     {
-        Intent serviceIntent = new Intent("com.mendhak.gpslogger.GpsLoggingService");
+        Intent serviceIntent = new Intent(applicationContext.getPackageName() + ".GpsLoggingService");
         serviceIntent.putExtra("EOTrackMeStatus", msg);
         // Start the service in case it isn't already running
         applicationContext.startService(serviceIntent);

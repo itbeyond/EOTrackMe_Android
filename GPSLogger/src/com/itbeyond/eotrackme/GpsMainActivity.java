@@ -673,7 +673,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
             }
 
             txtTravelled.setText(String.valueOf(Math.round(distanceValue)) + " " + distanceUnit +
-                    " (" + Session.getNumLegs() + " points)");
+                    " (" + (Session.getNumLegs() + 1) + " points)");
 
         }
         catch (Exception ex)

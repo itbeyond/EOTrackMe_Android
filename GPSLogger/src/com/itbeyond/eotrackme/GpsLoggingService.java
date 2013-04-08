@@ -48,8 +48,6 @@ import com.itbeyond.eotrackme.senders.EOTrackMeHelper;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @SuppressLint("SimpleDateFormat")
@@ -140,6 +138,7 @@ public class GpsLoggingService extends Service implements IActionListener
                 boolean startRightNow = bundle.getBoolean("immediate");
                 boolean getNextPoint = bundle.getBoolean("getnextpoint");
                 boolean EOTrackMeAlarm = bundle.getBoolean("EOTrackMeAlarm");
+                String EOTrackMeStatus = bundle.getString("EOTrackMeStatus");
                 
                 if (startRightNow)
                 {
@@ -163,6 +162,10 @@ public class GpsLoggingService extends Service implements IActionListener
                 if (EOTrackMeAlarm)
                 {
                 	SendEOTrackMe();
+                }
+                if (String.valueOf(EOTrackMeStatus) != null);
+                {
+                 SetEOTrackMeStatus(String.valueOf(EOTrackMeStatus));
                 }
             }
         }
@@ -216,7 +219,7 @@ public class GpsLoggingService extends Service implements IActionListener
             ea.cancel(mi);
 
             Utilities.LogDebug("New EOTrackMe alarm intent");
-            ea.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (1200), mi);
+            ea.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (60 * 2 * 1000), mi);
   //          ea.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (120000), mi);
 
             Utilities.LogDebug("EOTrackMe Alarm has been set");    	       	
@@ -265,7 +268,7 @@ public class GpsLoggingService extends Service implements IActionListener
         {
             Utilities.LogInfo("Sending EOTrackMe Log File");
             SetEOTrackMeStatus("Sending Locations");
-            EOTrackMeHelper EOTrackMeHelper = new EOTrackMeHelper(this, null);
+            EOTrackMeHelper EOTrackMeHelper = new EOTrackMeHelper(getApplicationContext(), this);
             EOTrackMeHelper.UploadFile();
         }
         
@@ -298,6 +301,11 @@ public class GpsLoggingService extends Service implements IActionListener
         Utilities.LogDebug("GpsLoggingService.GetPreferences");
         Utilities.PopulateAppSettings(getApplicationContext());
         
+    	if (!AppSettings.getEOTrackMeEnabled()) {
+    		SetEOTrackMeStatus("Enter your MemberID in Settings");
+    		return;
+        }
+        
         if (AppSettings.getEOTrackMeEnabled() && !EOTrackMe_Running )
         {
         	SendEOTrackMe();
@@ -309,7 +317,8 @@ public class GpsLoggingService extends Service implements IActionListener
      * Resets the form, resets file name if required, reobtains preferences
      */
     protected void StartLogging()
-    {
+    {    
+
         Utilities.LogDebug("GpsLoggingService.StartLogging");
         Session.setAddNewTrackSegment(true);
       
@@ -326,13 +335,13 @@ public class GpsLoggingService extends Service implements IActionListener
         {
             System.out.print(ex.getMessage());
         }
-
-
+        GetPreferences();
+        
         Session.setStarted(true);
         Session.setEOTrackMeError("");
-        GetPreferences();
+
         Notify();
-        ResetCurrentFileName(true);
+        //(true);
         ClearForm();
         StartGpsManager();
 
@@ -368,7 +377,7 @@ public class GpsLoggingService extends Service implements IActionListener
 
         RemoveNotification();
         StopAlarm();
-        StopGpsManager();
+        StopGpsManager(false);
         StopMainActivity();
     }
 
@@ -507,7 +516,7 @@ public class GpsLoggingService extends Service implements IActionListener
             return;
         }
 
-        SetStatus(R.string.started);
+        SetStatus(R.string.started_waiting);
     }
 
     /**
@@ -517,18 +526,14 @@ public class GpsLoggingService extends Service implements IActionListener
      */
     private void CheckTowerAndGpsStatus()
     {
-    	try {
-    	
-        Session.setTowerEnabled(towerLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
+    	Session.setTowerEnabled(towerLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
         Session.setGpsEnabled(gpsLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-    } catch (Throwable e) {
-       
-    }
-    }
+     }
     /**
      * Stops the location managers
+     * @param <pause>
      */
-    private void StopGpsManager()
+    private void StopGpsManager(boolean pause)
     {
 
         Utilities.LogDebug("GpsLoggingService.StopGpsManager");
@@ -545,13 +550,12 @@ public class GpsLoggingService extends Service implements IActionListener
             gpsLocationManager.removeUpdates(gpsLocationListener);
             gpsLocationManager.removeGpsStatusListener(gpsLocationListener);
         }
-
-        SetStatus(getString(R.string.stopped));
+        if (pause) {SetStatus(getString(R.string.gps_stopped)); } else {SetStatus(getString(R.string.stopped)); }
     }
 
     /**
      * Sets the current file name based on user preference.
-     */
+    
     @SuppressLint("SimpleDateFormat")
 	private void ResetCurrentFileName(boolean newStart)
     {
@@ -580,7 +584,7 @@ public class GpsLoggingService extends Service implements IActionListener
         }
 
     }
-
+ */
     /**
      * Gives a status message to the main service client to display
      *
@@ -649,7 +653,7 @@ public class GpsLoggingService extends Service implements IActionListener
     void RestartGpsManagers()
     {
         Utilities.LogDebug("GpsLoggingService.RestartGpsManagers");
-        StopGpsManager();
+        StopGpsManager(false);
         StartGpsManager();
     }
 
@@ -730,7 +734,7 @@ public class GpsLoggingService extends Service implements IActionListener
 
 
         Utilities.LogInfo("New location obtained");
-        ResetCurrentFileName(false);
+//       ResetCurrentFileName(false);
         Session.setLatestTimeStamp(System.currentTimeMillis());
         Session.setCurrentLocationInfo(loc);
         SetDistanceTraveled(loc);
@@ -766,14 +770,14 @@ public class GpsLoggingService extends Service implements IActionListener
     protected void StopManagerAndResetAlarm()
     {
         Utilities.LogDebug("GpsLoggingService.StopManagerAndResetAlarm");
-        StopGpsManager();
+        StopGpsManager(true);
         SetAlarmForNextPoint();
     }
 
     protected void StopManagerAndResetAlarm(int retryInterval)
     {
         Utilities.LogDebug("GpsLoggingService.StopManagerAndResetAlarm_retryInterval");
-        StopGpsManager();
+        StopGpsManager(true);
         SetAlarmForNextPoint(retryInterval);
     }
 

@@ -30,7 +30,7 @@ public class FileLoggerFactory
 {
     public static List<IFileLogger> GetFileLoggers()
     {
-        File gpxFolder = new File(Environment.getExternalStorageDirectory(), "EOLogger");
+        File gpxFolder = new File(Environment.getExternalStorageDirectory(), "EOTrackMe");
         if (!gpxFolder.exists())
         {
             gpxFolder.mkdirs();

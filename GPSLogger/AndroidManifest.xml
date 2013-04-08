@@ -62,15 +62,6 @@
             </intent-filter>
         </activity>
    
-        
-        <activity android:name="com.itbeyond.eotrackme.senders.EOTrackMeActivity"
-                  android:label="@string/eotrackme_setup_title">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <action android:name="com.itbeyond.eotrackme.EOTRACKME_SETUP"/>
-            </intent-filter>
-        </activity>
-
         <receiver android:enabled="true"
                   android:name="com.itbeyond.eotrackme.StartupReceiver"
                   android:permission="android.permission.RECEIVE_BOOT_COMPLETED">

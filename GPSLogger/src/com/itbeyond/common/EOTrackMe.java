@@ -36,7 +36,7 @@ public class EOTrackMe
 
     public static File getLogFile()
     {
-    	File gpxFolder = new File(Environment.getExternalStorageDirectory(), "EOLogger");
+    	File gpxFolder = new File(Environment.getExternalStorageDirectory(), "EOTrackMe");
         return new File(gpxFolder.getPath(), "Sender.log");
     }
     

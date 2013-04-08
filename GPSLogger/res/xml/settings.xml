@@ -4,10 +4,10 @@
                         
      <EditTextPreference android:key="eotrackme_user_id"
                          android:title="EOTrackMe UserID"
-                         android:summary="Enter your EOTrackMe User ID (e.g. M1234)"
-                         android:dialogTitle="EOTrackMe UserID"/>
+                         android:summary="Enter your EOTrackMe Member ID (e.g. M1234)"
+                         android:dialogTitle="EOTrackMe MemberID"/>
     
-    <PreferenceScreen android:title="@string/pref_logging_title">
+    <PreferenceScreen android:title="@string/pref_logging_title" android:summary="@string/pref_logging_summary">
                 
             <CheckBoxPreference android:key="prefer_celltower" android:summary="@string/prefer_celltower_summary" android:title="@string/prefer_celltower_title" />
 
@@ -29,9 +29,9 @@
         <CheckBoxPreference android:title="@string/startonbootup_title" android:summary="@string/startonbootup_summary" android:key="startonbootup" />
         <CheckBoxPreference android:title="@string/useimperial_title" android:summary="@string/useimperial_summary" android:key="useImperial" />
         <Preference android:title="@string/enabledisablegps_title" android:summary="@string/enabledisablegps_summary" android:key="enableDisableGps" android:defaultValue="false" />
-
+<!-- 
         <CheckBoxPreference android:title="@string/debuglog_title" android:summary="@string/debuglog_summary" android:key="debugtofile" />
-
+ -->
     </PreferenceScreen>
     
 	
