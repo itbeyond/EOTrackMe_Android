@@ -1,8 +1,8 @@
-EOLogger
-=========
+EOTrackMe 1.0.0
+===============
 To be added to Google Play shortly.
 
-You can bypass the market and get the APK yourself:  [Download here](http://eotrackme.com/track/clients/eologger.apk)
+You can bypass the market and get the APK yourself:  [Download here](http://eotrackme.com/track/clients/eotrackme.apk)
 
 Licensed under [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
 
