@@ -37,7 +37,8 @@ interface IGpsLoggerServiceClient
      * @param message
      */
     public void OnEOTrackMeStatusMessage(String message);
-    
+	public String GetEOTrackMeStatus();    
+	
     /**
      * Indicates that a fatal error has occurred, logging will stop.
      *
@@ -82,6 +83,8 @@ interface IGpsLoggerServiceClient
      * @param newFileName
      */
     public void onFileName(String newFileName);
+
+
 
 
 }

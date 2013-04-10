@@ -141,8 +141,9 @@ public class EOTrackMeClient extends GpsLoggingService
        	EOTrackMe.removeSentLines(data);
         sentLocationsCount = StringUtils.countMatches(data, "|");
         Utilities.LogDebug("Sent locations count: " + sentLocationsCount);
+        int toBeSentCount = EOTrackMe.getLogFileLines();
 
-        updateStatus("Last Send: " + sentLocationsCount);
+        updateStatus("Sent: " + sentLocationsCount + " Queue: " + toBeSentCount);
 
         OnComplete();
     }

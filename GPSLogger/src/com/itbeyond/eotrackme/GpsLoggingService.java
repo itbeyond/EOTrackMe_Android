@@ -49,6 +49,8 @@ import com.itbeyond.eotrackme.senders.EOTrackMeHelper;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressLint("SimpleDateFormat")
 public class GpsLoggingService extends Service implements IActionListener
@@ -734,6 +736,21 @@ public class GpsLoggingService extends Service implements IActionListener
 
 
         Utilities.LogInfo("New location obtained");
+        
+        String currentMessage = mainServiceClient.GetEOTrackMeStatus();
+        if (currentMessage.contains("Queue: ")) {
+        	Pattern p = Pattern.compile("[0-9]+$");
+        	Matcher m = p.matcher(currentMessage);
+        	String result = null;
+        	if(m.find()) {
+        	    result = m.group();
+        	}
+        	int num = Integer.parseInt(result);
+        	num += 1;
+        	SetEOTrackMeStatus(currentMessage.substring(0, currentMessage.indexOf("Queue: ")) + "Queue: " + num);
+        }
+        
+ 
 //       ResetCurrentFileName(false);
         Session.setLatestTimeStamp(System.currentTimeMillis());
         Session.setCurrentLocationInfo(loc);

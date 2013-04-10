@@ -482,6 +482,12 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         EOStatus.setText(message);
         Utilities.LogInfo(message);
     }
+  
+    public String GetEOTrackMeStatus()
+    {
+        TextView EOStatus = (TextView) findViewById(R.id.txtEOTrackMeStatus);
+        return (String) EOStatus.getText();
+    }
     
     
 
