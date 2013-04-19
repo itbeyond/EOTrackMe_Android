@@ -60,29 +60,31 @@ public class EOTrackMe
     	    return 0;
     	}
     
-    public static void removeSentLines(String lines)       
+    public static void removeSentLines(int sentLocationsCount)       
     {      
     	int WriteLock_Timeout = 10;
     	while (WriteLock_Timeout > 0) 
     	{
 	    	try {
-	    		if (StringUtils.countMatches(lines, "|") == getLogFileLines())
+	    		if (sentLocationsCount == getLogFileLines())
 	    		{
 	    			// Delete the log file
 	    			EOTrackMe.getLogFile().delete();
 	    		}
 	    		else
 	    		{
+	    			int numtoremove = sentLocationsCount - 1;
 	    			File logFile = EOTrackMe.getLogFile();
 	    			// We must remove already processed lines
 	    			// As the file is appended
 		    		String thisline;
 		    		StringBuilder fullfile = new StringBuilder();
-		    	    BufferedReader br = new BufferedReader(new FileReader(logFile), 8192);
+		    	    BufferedReader br = new BufferedReader(new FileReader(logFile), 16384);
 		    	    while ((thisline = br.readLine()) != null) {
-		    	    	if (!StringUtils.contains(lines, thisline)) {
+		    	    	if (numtoremove < 0) {
 		    	    		fullfile.append(thisline + "\n"); 
 		    	    		}
+		    	    	numtoremove--;
 		    	    	}
 		    	    br.close();
 		    	    
@@ -90,7 +92,7 @@ public class EOTrackMe
 		    	    logFile.createNewFile();
 		    	    
 		            FileOutputStream writer = new FileOutputStream(EOTrackMe.getLogFile(), false);
-		            BufferedOutputStream output = new BufferedOutputStream(writer);
+		            BufferedOutputStream output = new BufferedOutputStream(writer, 16384);
 		
 		            output.write(fullfile.toString().getBytes());
 		            output.flush();

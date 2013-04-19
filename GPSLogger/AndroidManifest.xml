@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.itbeyond.eotrackme" android:versionCode="2"
-          android:versionName="2" android:installLocation="auto">
+          package="com.itbeyond.eotrackme" android:versionCode="3"
+          android:versionName="3" android:installLocation="auto">
 
     <uses-sdk android:minSdkVersion="5" android:targetSdkVersion="5"/>
 

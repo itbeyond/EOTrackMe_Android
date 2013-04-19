@@ -72,7 +72,7 @@ public class EOTrackMeClient extends GpsLoggingService
             url.append(getURL());
 
             httpClient = new AsyncHttpClient();
-            httpClient.setUserAgent("EOTrackMe Driod");
+            httpClient.setUserAgent("EOTrackMe Android");
             httpClient.setTimeout(120000);
             RequestParams params = new RequestParams();
             params.put("id", id);
@@ -138,8 +138,8 @@ public class EOTrackMeClient extends GpsLoggingService
 
     public void OnCompleteLocation()
     {
-       	EOTrackMe.removeSentLines(data);
         sentLocationsCount = StringUtils.countMatches(data, "|");
+       	EOTrackMe.removeSentLines(sentLocationsCount);
         Utilities.LogDebug("Sent locations count: " + sentLocationsCount);
         int toBeSentCount = EOTrackMe.getLogFileLines();
 

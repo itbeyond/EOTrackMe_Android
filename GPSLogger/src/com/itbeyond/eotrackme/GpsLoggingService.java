@@ -370,9 +370,6 @@ public class GpsLoggingService extends Service implements IActionListener
 
         Utilities.LogInfo("Stopping logging");
         Session.setStarted(false);
-        // Email log file before setting location info to null
-//        AutoSendLogFileOnStop();
-//        CancelAlarm();
         CancelAlarm_EOTrackMe();
         Session.setCurrentLocationInfo(null);
         stopForeground(true);
