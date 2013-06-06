@@ -65,9 +65,9 @@ public class GpsLoggingService extends Service implements IActionListener
     // Helpers and managers
     // ---------------------------------------------------
     private GeneralLocationListener gpsLocationListener;
-    private GeneralLocationListener towerLocationListener;
+//    private GeneralLocationListener towerLocationListener;
     LocationManager gpsLocationManager;
-    private LocationManager towerLocationManager;
+//    private LocationManager towerLocationManager;
     
     private Intent EOTrackMe_alarmIntent;
     private boolean EOTrackMe_Running = false;
@@ -472,14 +472,14 @@ public class GpsLoggingService extends Service implements IActionListener
             gpsLocationListener = new GeneralLocationListener(this);
         }
 
-        if (towerLocationListener == null)
+/*        if (towerLocationListener == null)
         {
             towerLocationListener = new GeneralLocationListener(this);
         }
-
+*/
 
         gpsLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        towerLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        towerLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         CheckTowerAndGpsStatus();
 
@@ -495,7 +495,7 @@ public class GpsLoggingService extends Service implements IActionListener
 
             Session.setUsingGps(true);
         }
-        else if (Session.isTowerEnabled())
+/*        else if (Session.isTowerEnabled())
         {
             Utilities.LogInfo("Requesting tower location updates");
             Session.setUsingGps(false);
@@ -504,7 +504,7 @@ public class GpsLoggingService extends Service implements IActionListener
                     1000, 0,
                     towerLocationListener);
 
-        }
+        }*/
         else
         {
             Utilities.LogInfo("No provider available");
@@ -525,7 +525,7 @@ public class GpsLoggingService extends Service implements IActionListener
      */
     private void CheckTowerAndGpsStatus()
     {
-    	Session.setTowerEnabled(towerLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
+//    	Session.setTowerEnabled(towerLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
         Session.setGpsEnabled(gpsLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
      }
     /**
@@ -537,11 +537,11 @@ public class GpsLoggingService extends Service implements IActionListener
 
         Utilities.LogDebug("GpsLoggingService.StopGpsManager");
 
-        if (towerLocationListener != null)
+/*        if (towerLocationListener != null)
         {
             Utilities.LogDebug("Removing towerLocationManager updates");
             towerLocationManager.removeUpdates(towerLocationListener);
-        }
+        }*/
 
         if (gpsLocationListener != null)
         {

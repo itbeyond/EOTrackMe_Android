@@ -116,20 +116,19 @@ public class Utilities
                 .getDefaultSharedPreferences(context);
 
         AppSettings.setUseImperial(prefs.getBoolean("useImperial", false));
-
+/*
         AppSettings.setLogToKml(prefs.getBoolean("log_kml", false));
 
         AppSettings.setLogToGpx(prefs.getBoolean("log_gpx", false));
 
         AppSettings.setLogToPlainText(prefs.getBoolean("log_plain_text", false));
-
+*/
 //        AppSettings.setLogToOpenGTS(prefs.getBoolean("log_opengts", false));
 
         AppSettings.setShowInNotificationBar(prefs.getBoolean(
                 "show_notification", true));
 
-        AppSettings.setPreferCellTower(prefs.getBoolean("prefer_celltower",
-                false));
+        AppSettings.setPreferCellTower(false);
 
 
         String minimumDistanceString = prefs.getString(

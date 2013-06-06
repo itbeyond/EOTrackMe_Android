@@ -29,9 +29,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-
-
-
 import org.apache.commons.lang.StringUtils;
 
 

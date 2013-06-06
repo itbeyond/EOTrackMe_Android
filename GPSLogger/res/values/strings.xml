@@ -110,24 +110,21 @@
     <string name="pref_performance_title">Performance</string>
     <string name="prefer_celltower_title">Prefer celltowers</string>
     <string name="prefer_celltower_summary">Uses celltowers rather than satellites. Less accurate, but saves battery.</string>
-    <string name="time_before_logging_title">Time before logging</string>
-    <string name="time_before_logging_summary">Use 0 for maximum frequency, but slower is better for battery life.
+    <string name="time_before_logging_title">Time between positions</string>
+    <string name="time_before_logging_summary">Optimum 30-120s (Default 60s), slower is better for battery life.
     </string>
     <string name="time_before_logging_dialog_title">Time in seconds</string>
     <string name="time_before_logging_hint">Enter seconds (max 9999)</string>
-    <string name="retry_time_title">Time interval for accuracy</string>
-    <string name="retry_time_summary">Use 0 for maximum frequency, but slower is better for battery life.
+    <string name="retry_time_title">GPS wait for accuracy</string>
+    <string name="retry_time_summary">Optimum 0s-15s (Default 0s for first fix position).
     </string>
     <string name="retry_time_dialog_title">Time in seconds</string>
     <string name="retry_time_hint">Enter seconds (max 9999)</string>
-    <string name="distance_before_logging_title">Distance before logging</string>
-    <string name="distance_before_logging_summary">How far to travel before logging the next point. Use 0 to log all
-        points.
-    </string>
+    <string name="distance_before_logging_title">Distance between positions</string>
+    <string name="distance_before_logging_summary">Optimum 0m-1000m, (Default 0 log all), How far to travel before logging the next point.</string>
+    
     <string name="accuracy_before_logging_title">Accuracy before logging</string>
-    <string name="accuracy_before_logging_summary">Which min. accuracy to for logging. Use 0 to log all
-        points.
-    </string>
+    <string name="accuracy_before_logging_summary">Min. accuracy for logging. (Default 0 log all). If used must be >20m.</string>
 
     <string name="useimperial_title">Use Imperial units</string>
     <string name="useimperial_summary">Use feet, miles and pints, none of that newfangled metric stuff.</string>

@@ -24,8 +24,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.commons.lang.*;
-
 import com.itbeyond.eotrackme.common.Utilities;
 
 import android.os.Environment;
