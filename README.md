@@ -1,10 +1,18 @@
-EOLogger
-=========
-To be added to Google Play shortly.
+EOTrackMe 4.2
+=============
+Added to Google Play
 
-You can bypass the market and get the APK yourself:  [Download here](http://eotrackme.com/track/clients/eologger.apk)
+You can bypass the market and get the APK yourself: Download here
 
-Licensed under [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
+- Replaced icons and default userid entry to prefix the 'M' if not entered.
 
 
-This project is based on the GPSLogger project see [GPSLogger here](http://github.com/mendhak/gpslogger)
+V4 Update
+- Upgrade SDK to 22
+- Upgrade http jar
+- Removed confusing options and cell tower preferences
+- Removed unused libs
+- Changed strings to make descriptions better.
+
+Licensed under GPL v2.
+This project is based on the GPSLogger project see GPSLogger here
