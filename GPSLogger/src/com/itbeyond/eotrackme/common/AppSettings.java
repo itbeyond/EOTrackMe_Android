@@ -277,7 +277,8 @@ public class AppSettings extends Application
     
     public static void setEOTrackMeUserId(String EOTrackMeUserId)
     {
-        AppSettings.EOTrackMeUserId = EOTrackMeUserId;
+    	if (!EOTrackMeUserId.startsWith("M") && !EOTrackMeUserId.startsWith("C")) { EOTrackMeUserId = "M" + EOTrackMeUserId; }  
+        AppSettings.EOTrackMeUserId = EOTrackMeUserId.trim();
     }
     
     public static String getEOTrackMeDeviceId()
